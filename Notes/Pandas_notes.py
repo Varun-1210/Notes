@@ -77,3 +77,21 @@ data.reindex(index = data.index.to_list()+['India'],columns=data.columns.to_list
 # data.iat[i, j] --> Select a single scalar value by row and column position (integers)
 
 ####################################################################################################
+
+# Integer Indexes
+
+data = pd.Series(np.arange(3))
+data[-1] # will throw error
+data.loc[-1] # will throw error
+data.iloc[-1]
+data[:1] # wont include 1st index
+data.loc[:1] # will include 1st index
+data.iloc[:1] # wont include 1st index
+
+data = pd.Series(np.arange(3),index=list('abc'))
+data[-1] # will show output
+data.iloc[-1]
+
+####################################################################################################
+
+# Arithmetic and Data Alignment
