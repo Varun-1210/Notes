@@ -3,7 +3,6 @@
 
 # Series indexing (obj[...]) works analogously to NumPy array indexing, except you can use the Series’s index values instead of only integers.
 
-from operator import index
 import pandas as pd
 import numpy as np
 
@@ -95,3 +94,39 @@ data.iloc[-1]
 ####################################################################################################
 
 # Arithmetic and Data Alignment
+
+data_1 = pd.Series(np.arange(1,5),index=list('afcd'))
+data_2 = pd.Series(np.arange(3,7),index=list('acde'))
+
+# data_1.index.isin(data_2.index)
+# data_2.index.isin(data_1.index)
+
+data_1 + data_2 # all the same index values will be added up and for the missing index, nan is created 
+
+# In the case of DataFrame, alignment is performed on both the rows and the columns:
+
+data = np.arange(4*3).reshape(4,3)
+col_names = list('abc')
+index_name = ['Ohio', 'Texas', 'Colorado','India']
+
+df_1 = pd.DataFrame(data=data,index=index_name,columns=col_names) 
+
+# data = np.arange(4*3).reshape(4,3)
+col_names = list('acd')
+index_name = ['Ohio', 'Newyork', 'Colorado','China']
+
+df_2 = pd.DataFrame(data=data,index=index_name,columns=col_names) 
+
+df_1 + df_2 # only same column and rows will be added up and rest of the columns and row are added with nan values
+
+# If you add DataFrame objects with no column or row labels in common, the result will contain all nulls:
+
+pd.DataFrame({'A':[1,2,3]}) + pd.DataFrame({'B':[1,2,3]})
+
+# Arithmetic methods with fill values
+
+df1 = pd.DataFrame(np.arange(12.).reshape((3, 4)),columns=list('abcd'))
+df2 = pd.DataFrame(np.arange(20.).reshape((4, 5)),columns=list('abcde'))
+
+df1.add(df2)
+df1.add(df2,fill_value=0)
